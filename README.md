@@ -9,11 +9,16 @@ This repository is part of a tutorial series on Ready Tensor, a web platform for
 ## Repository Contents
 
 ```bash
+binary_class_project/
+├── examples/
 ├── inputs/
 │   ├── data/
 │   │   ├── testing/
+│   │   │   └── titanic_test.csv
 │   │   └── training/
+│   │       └── titanic_train.csv
 │   └── schema/
+│       └─ titanic_schema.json│
 ├── model/
 │   └── artifacts/
 ├── outputs/
@@ -22,16 +27,32 @@ This repository is part of a tutorial series on Ready Tensor, a web platform for
 │   └── predictions/
 ├── src/
 │   ├── config/
+│   │   ├── model_config.json
+│   │   ├── paths.py
+│   │   └── preprocessing.py
 │   ├── data_model/
 │   ├── hyperparameter_tuning/
 │   ├── prediction/
+│   │   ├── __init__.json
+│   │   └── predictor_model.py
 │   ├── preprocessing/
+│   │   ├── custom_transformers.py
+│   │   ├── pipeline.py
+│   │   ├── preprocess.py
+│   │   └── target_encoder.py
 │   ├── schema/
-│   └── xai/
+│   │   └── data_schema.py
+│   ├── xai/
+│   ├── predict.py
+│   ├── train.py
+│   └── utils.py
 ├── tests/
 │   ├── <mirrors `/src` structure ...>
+│   ├── schema/
+│   │   └── test_data_schema.py
 │   ...
 │   ...
+│   └── test_utils.py
 ├── tmp/
 ├── .gitignore
 ├── LICENSE
