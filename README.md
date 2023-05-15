@@ -27,6 +27,7 @@ binary_class_project/
 │   └── predictions/
 ├── src/
 │   ├── config/
+│   │   ├── default_hyperparameters.json
 │   │   ├── model_config.json
 │   │   ├── paths.py
 │   │   └── preprocessing.py
