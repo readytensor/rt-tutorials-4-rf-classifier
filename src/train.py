@@ -76,11 +76,16 @@ def run_training(
         pipeline_file_path,
         target_encoder_file_path)
 
+    # train and save predictor model
     predictor = train_predictor_model(balanced_train_inputs, balanced_train_labels)
     save_predictor_model(predictor, predictor_file_path)
+
+    # calculate and print validation accuracy
     val_accuracy = evaluate_predictor_model(
         predictor, transformed_val_inputs, transformed_val_labels)
     print("Validation accuracy:", round(val_accuracy, 3))
+
+    print("Training completed successfully")
 
 
 if __name__ == "__main__":
