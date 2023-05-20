@@ -87,14 +87,16 @@ def test_add_ids_to_predictions(sample_test_data, schema_provider):
         list(predictions[schema_provider.allowed_target_values[1]])
 
 
-def test_integration_run_batch_predictions(
+def test_integration_run_batch_predictions_without_hpt(
         tmpdir,
         input_schema_dir,
-        train_dir,
         model_config_file_path,
+        train_dir,
+        pipeline_config_file_path,
         test_dir,
         sample_test_data,
-        schema_provider):
+        schema_provider,
+        default_hyperparameters_file_path):
     """
     Integration test for the run_batch_predictions function.
 
@@ -112,11 +114,15 @@ def test_integration_run_batch_predictions(
     Args:
         tmpdir (LocalPath): Temporary directory path provided by pytest's tmpdir fixture.
         input_schema_dir (str): Directory path to the input data schema.
-        train_dir (str): Directory path to the training data.
         model_config_file_path (str): Path to the model configuration file.
+        train_dir (str): Directory path to the training data.
+        pipeline_config_file_path (str): Directory path to the pipeline config file.
         test_dir (str): Directory path to the test data.
         sample_test_data (pd.DataFrame): Sample DataFrame for testing.
         schema_provider (Any): Loaded schema provider.
+        default_hyperparameters_file_path (str): Path to default hyperparameters.
+        hpt_config_file_path (str): Path to HPT config file.
+        explainer_config_file_path (str): Path to explainer config file.
     """
     # Create temporary paths for training
     saved_schema_path = str(tmpdir.join('saved_schema.json'))
@@ -124,15 +130,18 @@ def test_integration_run_batch_predictions(
     target_encoder_file_path = str(tmpdir.join('target_encoder.joblib'))
     predictor_file_path = str(tmpdir.join('predictor.joblib'))
 
-    # Run the training process
+    # Run the training process without hyperparameter tuning
     run_training(
         input_schema_dir=input_schema_dir,
         saved_schema_path=saved_schema_path,
         model_config_file_path=model_config_file_path,
         train_dir=train_dir,
+        pipeline_config_file_path=pipeline_config_file_path,
         pipeline_file_path=pipeline_file_path,
         target_encoder_file_path=target_encoder_file_path,
-        predictor_file_path=predictor_file_path)
+        predictor_file_path=predictor_file_path,
+        default_hyperparameters_file_path=default_hyperparameters_file_path
+    )
 
     # Create temporary paths for prediction
     predictions_file_path = str(tmpdir.join('predictions.csv'))
