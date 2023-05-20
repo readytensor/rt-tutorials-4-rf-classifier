@@ -3,8 +3,14 @@ import os
 from src.train import run_training
 
 
-# Test function
-def test_run_training(tmpdir, input_schema_dir, train_dir, model_config_file_path):
+def test_run_training(
+        tmpdir, 
+        input_schema_dir, 
+        model_config_file_path,
+        train_dir, 
+        pipeline_config_file_path,
+        default_hyperparameters_file_path
+    ):
     """Test the run_training function to make sure it produces the required artifacts"""
     # Create temporary paths
     saved_schema_path = str(tmpdir.join('saved_schema.json'))
@@ -18,9 +24,12 @@ def test_run_training(tmpdir, input_schema_dir, train_dir, model_config_file_pat
         saved_schema_path=saved_schema_path,
         model_config_file_path=model_config_file_path,
         train_dir=train_dir,
+        pipeline_config_file_path=pipeline_config_file_path,
         pipeline_file_path=pipeline_file_path,
         target_encoder_file_path=target_encoder_file_path,
-        predictor_file_path=predictor_file_path)
+        predictor_file_path=predictor_file_path,
+        default_hyperparameters_file_path=default_hyperparameters_file_path
+    )
 
     # Assert that the model artifacts are saved in the correct paths
     assert os.path.isfile(saved_schema_path)

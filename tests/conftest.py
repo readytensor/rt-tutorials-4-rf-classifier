@@ -64,6 +64,7 @@ def schema_provider(schema_dict):
 def model_config():
     """ Fixture to create a sample model_config json"""
     config = {
+        "seed_value": 0,
         "validation_split": 0.1,        
         "prediction_field_name": "prediction"
     }
@@ -71,7 +72,7 @@ def model_config():
 
 
 @pytest.fixture
-def preprocessing_config():
+def pipeline_config():
     """ Fixture to create a preprocessing config"""
     config = {
         "numeric_transformers": {
@@ -101,6 +102,16 @@ def preprocessing_config():
         }
         }
     return config
+
+
+@pytest.fixture
+def pipeline_config_file_path(pipeline_config, tmpdir):
+    """ Fixture to create and save a sample preprocessing_config json"""
+    config_file_path = tmpdir.join('preprocessing.json')
+    with open(config_file_path, 'w') as file:
+        json.dump(pipeline_config, file)
+    return str(config_file_path)
+
 
 @pytest.fixture
 def sample_data():
@@ -165,4 +176,24 @@ def model_config_file_path(model_config, tmpdir):
     config_file_path = tmpdir.join('model_config.json')
     with open(config_file_path, 'w') as file:
         json.dump(model_config, file)
+    return str(config_file_path)
+
+
+
+@pytest.fixture
+def default_hyperparameters():
+    hyperparameters = {
+        "n_estimators": 200,
+        "min_samples_split": 8,
+        "min_samples_leaf": 4
+    }
+    return hyperparameters
+
+
+@pytest.fixture
+def default_hyperparameters_file_path(default_hyperparameters, tmpdir):
+    """ Fixture to create and save a sample default_hyperparameters json"""
+    config_file_path = tmpdir.join('default_hyperparameters.json')
+    with open(config_file_path, 'w') as file:
+        json.dump(default_hyperparameters, file)
     return str(config_file_path)
