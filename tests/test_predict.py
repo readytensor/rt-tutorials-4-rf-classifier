@@ -65,8 +65,8 @@ def test_add_ids_to_predictions(sample_test_data, schema_provider):
     # Create a sample predictions DataFrame
     num_rows = len(sample_test_data)
     predictions = pd.DataFrame({
-        schema_provider.allowed_target_values[0]: np.random.rand(num_rows),
-        schema_provider.allowed_target_values[1]: np.random.rand(num_rows)
+        schema_provider.target_classes[0]: np.random.rand(num_rows),
+        schema_provider.target_classes[1]: np.random.rand(num_rows)
     })
     
     # Run the function
@@ -75,16 +75,16 @@ def test_add_ids_to_predictions(sample_test_data, schema_provider):
     print(result.head())
 
     # Check the columns of the result
-    assert list(result.columns) == [schema_provider.id] + schema_provider.allowed_target_values
+    assert list(result.columns) == [schema_provider.id] + schema_provider.target_classes
 
     # Check the IDs of the result
     assert list(result[schema_provider.id]) == list(sample_test_data[schema_provider.id])
 
     # Check the values of class 0 and class 1
-    assert list(result[schema_provider.allowed_target_values[0]]) == \
-        list(predictions[schema_provider.allowed_target_values[0]])
-    assert list(result[schema_provider.allowed_target_values[1]]) == \
-        list(predictions[schema_provider.allowed_target_values[1]])
+    assert list(result[schema_provider.target_classes[0]]) == \
+        list(predictions[schema_provider.target_classes[0]])
+    assert list(result[schema_provider.target_classes[1]]) == \
+        list(predictions[schema_provider.target_classes[1]])
 
 
 def test_integration_run_batch_predictions_without_hpt(
@@ -166,7 +166,7 @@ def test_integration_run_batch_predictions_without_hpt(
 
     # Assert that predictions dataframe has the right columns
     assert schema_provider.id in predictions_df.columns
-    for class_ in schema_provider.allowed_target_values:
+    for class_ in schema_provider.target_classes:
         assert class_ in predictions_df.columns
 
     # Assert that the number of rows in the predictions matches the number of rows in the test data
