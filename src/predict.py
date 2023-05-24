@@ -15,7 +15,6 @@ from prediction.predictor_model import load_predictor_model, predict_with_model
 from config import paths
 
 
-
 def create_predictions_dataframe(
         predictions_arr: np.ndarray,
         class_names: List[str],
