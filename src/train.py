@@ -82,7 +82,7 @@ def run_training(
     default_hyperparameters = read_json_as_dict(default_hyperparameters_file_path)
     predictor = train_predictor_model(
         balanced_train_inputs, balanced_train_labels, default_hyperparameters)
-    
+
     # save predictor model
     save_predictor_model(predictor, predictor_file_path)
 
