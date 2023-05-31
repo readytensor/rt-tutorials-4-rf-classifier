@@ -1,6 +1,6 @@
 import pytest
 import os
-from src.train import run_training
+from train import run_training
 
 
 def test_run_training(
